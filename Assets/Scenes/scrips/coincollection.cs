@@ -27,7 +27,7 @@ public class coincollection : MonoBehaviour
         {
             player.coinCollected();
             gameObject.SetActive(false);
-            print("Coin Collected");
+            //print("Coin Collected");
         }
     }
 }

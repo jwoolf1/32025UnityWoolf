@@ -3,16 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using TMPro;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
     public int coins;
+    public int health;
+    public int damagecooldown;
     public GameObject Capsule;
     public GameObject FreeLook;
     private float horizontalInput;
     private float verticalInput;
     private bool jumpKeyPressed;
     private Rigidbody rb;
+    public Text coinstext;
+    public Text healthtext;
     //public Transform Camera;
     //public Transform PlayerOBJ;
     public float xAngle, yAngle, zAngle;
@@ -22,6 +28,8 @@ public class Player : MonoBehaviour
         //float yAngle = FreeLook.transform.localRotation.eulerAngles.y;
         //float zAngle = Capsule.transform.localRotation.eulerAngles.z;
         Rigidbody rb = GetComponent<Rigidbody>();
+        health = 100;
+        damagecooldown = 100;
     }
     void Update()
     {
@@ -46,9 +54,11 @@ public class Player : MonoBehaviour
 
         if (jumpKeyPressed)
         {
-            GetComponent<Rigidbody>().AddForce(Vector3.up * 15, ForceMode.VelocityChange); 
+            GetComponent<Rigidbody>().AddForce(Vector3.up * 5, ForceMode.VelocityChange); 
             jumpKeyPressed = false;
         }
+
+        damagecooldown--;
 
         //Capsule.transform.Rotate(xAngle, yAngle, zAngle, Space.Self);
         //print(yAngle);
@@ -58,6 +68,15 @@ public class Player : MonoBehaviour
     public void coinCollected() 
     {
         coins++;
-        print(coins);
+        coinstext.text = coins.ToString();
+    }
+    public void playerHurt()
+    {
+        if (damagecooldown <= 0)
+        {
+            health--;
+            healthtext.text = health.ToString();
+            damagecooldown = 100;
+        }
     }
 }
