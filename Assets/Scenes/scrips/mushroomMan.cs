@@ -15,9 +15,13 @@ public class mushroomMan : MonoBehaviour
     public GameObject target;
     public float xAngle, yAngle, zAngle;
     private bool touchingplayer;
+    public int attackcooldown;
+    public Text healthtext;
+    public int playerhealth;
     void Start()
     {
-     
+        attackcooldown = 5;
+        playerhealth = 100;
     }
     void Update()
     {
@@ -27,12 +31,11 @@ public class mushroomMan : MonoBehaviour
         yAngle = me.transform.localRotation.eulerAngles.y;
         zAngle = me.transform.localRotation.eulerAngles.z;
 
-        if (Vector3.Distance(target.transform.position, me.transform.position) < 1.5f)
+        if (Vector3.Distance(target.transform.position, me.transform.position) < 1.5f && Vector3.Distance(target.transform.position, me.transform.position) > 5f)
         {
             touchingplayer = true;
-            
         }
-        else
+        if(!(Vector3.Distance(target.transform.position, me.transform.position) < 1.5f && Vector3.Distance(target.transform.position, me.transform.position) > 5f))
         {
             touchingplayer = false;
         }
@@ -47,11 +50,17 @@ public class mushroomMan : MonoBehaviour
             transform.position += transform.right / 10; 
             transform.position += transform.forward / 10;
         }
-
-        Player player = GetComponent<Player>();
-        if (Vector3.Distance(target.transform.position, me.transform.position) < 2f)
+        attackcooldown--;
+        Player player = target.GetComponent<Player>();
+        if (Vector3.Distance(target.transform.position, me.transform.position) < 1f * (int)me.transform.localScale.x)
         {
-            player.playerHurt();
+            //Player.PlayerHurt();
+            if (attackcooldown <= 0)
+            {
+                playerhealth -= 1 * (int)me.transform.localScale.x;
+                healthtext.text = playerhealth.ToString();
+                attackcooldown = 5;
+            }
         }
     }
     /*private void OnTriggerEnter(Collider other)
