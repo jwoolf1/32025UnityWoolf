@@ -52,11 +52,13 @@ public class Player : MonoBehaviour
 
         //Vector3 bulletvector = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         //Vector3 bulletrotation = new Vector3(xAngle,yAngle,zAngle);
-
-        if (Input.GetMouseButtonDown(0))
+        if (Bullet != null)
         {
-            Vector3 bulletvector = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-            Instantiate(Bullet,bulletvector,transform.rotation);
+            if (Input.GetMouseButtonDown(0))
+            {
+                Vector3 bulletvector = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+                Instantiate(Bullet, bulletvector, transform.rotation);
+            }
         }
 
 
@@ -78,6 +80,9 @@ public class Player : MonoBehaviour
         //print(yAngle);
         Capsule.transform.rotation = Quaternion.Euler(xAngle, yAngle, zAngle);
         //transform.eulerAngles = new Vector3(xAngle, yAngle, zAngle);
+
+        //Bullet.transform.position += Bullet.transform.right / 10;
+        //Bullet.transform.position += Bullet.transform.forward / 10;
     }
     public void coinCollected() 
     {
