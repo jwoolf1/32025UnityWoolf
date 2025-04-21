@@ -34,7 +34,7 @@ public class Bulletmovement : MonoBehaviour
 
             if (Vector3.Distance(target.transform.position, transform.position) < 1f * (int)transform.localScale.x)
             {
-                enemyhealth -= 10;
+                enemyhealth -= 1;
                 Destroy(gameObject);
                 print(enemyhealth);
             }

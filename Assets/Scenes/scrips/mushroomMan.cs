@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using System.Text.RegularExpressions;
+using UnityEngine.SceneManagement;
 
 public class mushroomMan : MonoBehaviour
 {
@@ -42,7 +43,10 @@ public class mushroomMan : MonoBehaviour
                 touchingplayer = false;
             }
         }
-
+        if(playerhealth <= 0) 
+        {
+            SceneManager.LoadSceneAsync(4);
+        }
     }
     void FixedUpdate()
     {
